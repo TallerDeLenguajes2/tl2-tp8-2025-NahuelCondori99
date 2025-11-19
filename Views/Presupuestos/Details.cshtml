@@ -1,0 +1,35 @@
+@model Presupuestos
+
+<h2>Detalle del Presupuesto</h2>
+
+<h4>Datos del Presupuesto</h4>
+<p><b>Destinatario:</b> @Model.NombreDestinatario</p>
+<p><b>Fecha:</b> @Model.FechaCreacion</p>
+<p><b>Total:</b> $@Model.MontoPresupuesto()</p>
+<p><b>Total con IVA:</b> $@Model.MontoPresupuestoIVA()</p>
+
+<h4>Productos del Presupuesto</h4>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var d in Model.Detalles)
+        {
+            <tr>
+                <td>@d.Producto.Descripcion</td>
+                <td>$@d.Producto.Precio</td>
+                <td>@d.Cantidad</td>
+                <td>$@(d.Cantidad * d.Producto.Precio)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a class="btn btn-primary" href="/Presupuestos">Volver</a>

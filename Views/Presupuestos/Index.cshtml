@@ -1,0 +1,27 @@
+@model List<Presupuestos>
+
+<h2>Presupuestos</h2>
+
+<table class = "table table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Destinatario</th>
+            <th>Fecha</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var p in Model)
+        {
+            <tr>
+                <td>@p.IdPresupuesto</td>
+                <td>@p.NombreDestinatario</td>
+                <td>@p.FechaCreacion</td>
+                <td>
+                    <a class="btn btn-sm btn info" href="Views/Presupuestos/Details/@p.IdPresupuesto">Ver</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
