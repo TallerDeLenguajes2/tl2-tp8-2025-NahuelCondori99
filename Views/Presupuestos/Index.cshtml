@@ -19,7 +19,11 @@
                 <td>@p.NombreDestinatario</td>
                 <td>@p.FechaCreacion</td>
                 <td>
-                    <a class="btn btn-sm btn info" href="Views/Presupuestos/Details/@p.IdPresupuesto">Ver</a>
+                    <a class="btn btn-primary" 
+                       asp-controller="Presupuestos" 
+                       asp-action="Details" 
+                       asp-route-id="@p.IdPresupuesto">Ver</a>
+
                 </td>
             </tr>
         }
