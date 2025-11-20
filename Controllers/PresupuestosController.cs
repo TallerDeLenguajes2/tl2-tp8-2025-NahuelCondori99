@@ -26,4 +26,22 @@ public class PresupuestosController : Controller
         }
         return View(presupuesto);
     }
+
+    //Agregar productos
+
+    public IActionResult AddProduct(int id)
+    {
+        var prodRepo = new ProductoRepository();
+        var listaprod = prodRepo.GetAll();
+
+        ViewBag.IdPresupuesto = id;
+        return View(listaprod);
+    }
+
+    [HttpPost]
+    public IActionResult AddProduct(int idPresupuesto, int idProducto, int cantidad)
+    {
+        repo.AgregarProducto(idPresupuesto, idProducto, cantidad);
+        return RedirectToAction("Details", new{id = idPresupuesto});
+    }
 }
