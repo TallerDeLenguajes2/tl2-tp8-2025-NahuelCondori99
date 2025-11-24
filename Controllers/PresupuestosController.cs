@@ -44,4 +44,10 @@ public class PresupuestosController : Controller
         repo.AgregarProducto(idPresupuesto, idProducto, cantidad);
         return RedirectToAction("Details", new{id = idPresupuesto});
     }
+
+    public IActionResult DeleteProd(int idPresupuesto, int idProducto)
+    {
+        repo.EliminarProducto(idPresupuesto, idProducto);
+        return RedirectToAction("Details", new{id = idPresupuesto});
+    }
 }

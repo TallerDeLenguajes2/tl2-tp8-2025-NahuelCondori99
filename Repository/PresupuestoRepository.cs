@@ -155,5 +155,25 @@ public class PresupuestosRepository
             }
         }
     }
+
+    //Eliminar un producto
+
+    public void EliminarProducto(int idPresupuesto, int idProducto)
+    {
+        using (var conexion = new SqliteConnection(cadenaDeConexion))
+        {
+            conexion.Open();
+            string sql = "DELETE FROM presupuestoDetalles WHERE idPresupuesto = @idP AND idProducto = @idProd";
+
+            using (var comando = new SqliteCommand(sql, conexion))
+            {
+                comando.Parameters.AddWithValue("@idP", idPresupuesto);
+                comando.Parameters.AddWithValue("@idProd", idProducto);
+
+                comando.ExecuteNonQuery();
+            }
+        }
+
+    }
 }
 
