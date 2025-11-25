@@ -45,9 +45,36 @@ public class PresupuestosController : Controller
         return RedirectToAction("Details", new{id = idPresupuesto});
     }
 
+    //Eliminar productos del presupuesto
     public IActionResult DeleteProd(int idPresupuesto, int idProducto)
     {
         repo.EliminarProducto(idPresupuesto, idProducto);
+        return RedirectToAction("Details", new{id = idPresupuesto});
+    }
+
+    //Modificar la cantidad
+
+    [HttpGet]
+    public IActionResult EditProduct(int idPresupuesto, int idProducto)//Mostrar formulario
+    {
+        var presupuesto  = repo.GetById(idPresupuesto);
+
+        var detalle = presupuesto.Detalles.FirstOrDefault(d => d.Producto.IdProducto == idProducto);
+
+        if (detalle == null)
+        {
+            return NotFound();
+        }
+        ViewBag.IdPresupuesto = idPresupuesto;
+        ViewBag.IdProducto = idProducto;
+        return View(detalle);
+    }
+
+    [HttpPost]
+    public IActionResult EditProduct(int idPresupuesto, int idProducto, int cantidad)
+    {
+        repo.ModificarCantidad(idPresupuesto, idProducto, cantidad);
+
         return RedirectToAction("Details", new{id = idPresupuesto});
     }
 }

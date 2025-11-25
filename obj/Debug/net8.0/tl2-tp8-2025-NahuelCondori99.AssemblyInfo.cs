@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("tl2-tp8-2025-NahuelCondori99")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+484229ba77318dca5cb819fd95f7992207c2234a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8f9e065a8a6a6aebcedd385fcd30216fdbddc55c")]
 [assembly: System.Reflection.AssemblyProductAttribute("tl2-tp8-2025-NahuelCondori99")]
 [assembly: System.Reflection.AssemblyTitleAttribute("tl2-tp8-2025-NahuelCondori99")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

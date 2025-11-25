@@ -175,5 +175,26 @@ public class PresupuestosRepository
         }
 
     }
+
+    //Modificar cantidad
+
+    public void ModificarCantidad(int idPresupuesto, int idProducto, int nuevaCantidad)
+    {
+        using (var conexion = new SqliteConnection(cadenaDeConexion))
+        {
+            conexion.Open();
+
+            string sql = "UPDATE presupuestoDetalles SET cantidad = @cant WHERE idPresupuesto = @idP AND idProducto = @idProd";
+
+            using (var comando = new SqliteCommand(sql, conexion))
+            {
+                comando.Parameters.AddWithValue("@cant", nuevaCantidad);
+                comando.Parameters.AddWithValue("@idP",idPresupuesto);
+                comando.Parameters.AddWithValue("@idProd", idProducto);
+
+                comando.ExecuteNonQuery();
+            }
+        }
+    }
 }
 

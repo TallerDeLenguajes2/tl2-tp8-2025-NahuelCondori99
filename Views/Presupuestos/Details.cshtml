@@ -18,6 +18,7 @@
             <th>Cantidad</th>
             <th>Subtotal</th>
             <th>Acciones</th>
+            <th>Editar</th>
         </tr>
     </thead>
     <tbody>
@@ -35,6 +36,15 @@
                         asp-route-idPresupuesto="@Model.IdPresupuesto"
                         asp-route-idProducto="@d.Producto.IdProducto">
                             Eliminar
+                    </a>
+                </td>
+                <td>
+                    <a class="btn btn-warning"
+                        asp-controller="Presupuestos"
+                        asp-action="EditProduct"
+                        asp-route-idPresupuesto="@Model.IdPresupuesto"
+                        asp-route-idProducto="@d.Producto.IdProducto">
+                        Editar
                     </a>
                 </td>
             </tr>
