@@ -14,6 +14,7 @@
             <th>ID</th>
             <th>Descripcion</th>
             <th>Precio</th>
+            <th>Acciones</th>
         </tr>
         </thead>
         <tbody>
@@ -23,6 +24,28 @@
                     <td>@p.IdProducto</td>
                     <td>@p.Descripcion</td>
                     <td>@p.Precio</td>
+
+                    <td>
+                        <a class="btn btn-primary"
+                           asp-controller="Productos"
+                           asp-action="Details"
+                           asp-route-id="@p.IdProducto">
+                           Ver
+                        </a>
+                        <a class="btn btn-danger"
+                           asp-controller="Productos"
+                           asp-action="Delete"
+                           asp-route-id="@p.IdProducto">
+                           Eliminar
+                        </a>
+                        <a class="btn btn-warning"
+                            asp-controller="Productos"
+                            asp-action="Edit"
+                            asp-route-id="@p.IdProducto">
+                            Editar
+                        </a>
+                    </td>
+                    
                 </tr>
             }
         </tbody>

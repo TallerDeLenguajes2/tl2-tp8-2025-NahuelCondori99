@@ -80,4 +80,23 @@ public class ProductosController : Controller
         repo.Modificar(productoVM.IdProducto, p);
         return RedirectToAction("Index");
     }
+
+    //GET: Delete
+    public IActionResult Delete(int id)
+    {
+        var p = repo.GetById(id);
+
+        if (p == null)
+        {
+            return NotFound();
+        }
+        return View(p);
+    }
+
+    [HttpPost]
+    public IActionResult DeleteConfirmed(int id)
+    {
+        repo.Eliminar(id);
+        return RedirectToAction("Index");
+    }
 }
