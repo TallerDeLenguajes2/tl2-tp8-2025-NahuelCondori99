@@ -196,5 +196,29 @@ public class PresupuestosRepository
             }
         }
     }
+
+    //Del tp9
+    public void Modificar(int id, Presupuestos p)
+    {
+        using (var conexion = new SqliteConnection(cadenaDeConexion))
+        {
+            conexion.Open();
+
+            string sql = @"
+                UPDATE presupuestos
+                SET nombreDestinatario = @nombre,
+                    fechaCreacion = @fecha
+                WHERE idPresupuesto = @id";
+
+            using (var comando = new SqliteCommand(sql, conexion))
+            {
+                comando.Parameters.AddWithValue("@nombre", p.NombreDestinatario);
+                comando.Parameters.AddWithValue("@fecha", p.FechaCreacion);
+                comando.Parameters.AddWithValue("@id", id);
+
+                comando.ExecuteNonQuery();
+            }
+        }
+    }
 }
 

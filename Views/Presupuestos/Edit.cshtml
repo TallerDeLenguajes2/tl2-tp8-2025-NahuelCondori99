@@ -1,0 +1,20 @@
+@model tl2_tp8_2025_NahuelCondori99.PresupuestoViewModel
+
+<h2>Editar Presupuesto</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="IdPresupuesto"/>
+
+    <div class="form-group">
+        <label asp-for="NombreDestinatario"></label>
+        <input asp-for="NombreDestinatario" class="form-control"/>
+        <span asp-validation-for="NombreDestinatario" class="text-danger"></span>
+    </div>
+    <button class="btn btn-warning" type="submit">Guardar cambios</button>
+    <a class="btn btn-secondary" href="/Presupuestos">Cancelar</a>
+</form>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

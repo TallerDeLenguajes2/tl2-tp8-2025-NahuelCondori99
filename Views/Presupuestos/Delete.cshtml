@@ -1,0 +1,18 @@
+@model Presupuestos
+
+<h2>Eliminar Presupuesto</h2>
+
+<p>¿Estas seguro que deseas eliminar este Presupuesto?</p>
+
+<ul>
+    <li><b>ID:</b>@Model.IdPresupuesto</li>
+    <li><b>Destinatario:</b>@Model.NombreDestinatario</li>
+    <li><b>Fecha:</b>@Model.FechaCreacion</li>
+</ul>
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" name="id" value="@Model.IdPresupuesto"/>
+
+    <button class="btn btn-danger" type="submit">Eliminar definitivamente</button>
+    <a class="btn btn-secondary" href="/Presupuestos">Cancelar</a>
+</form>

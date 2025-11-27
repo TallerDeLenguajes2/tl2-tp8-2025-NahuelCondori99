@@ -1,6 +1,13 @@
+@using SQLitePCL
 @model List<Presupuestos>
 
 <h2>Presupuestos</h2>
+
+<a class="btn btn-success mb-3"
+   asp-controller="Presupuestos"
+   asp-action="Create">
+   Crear presupuesto
+</a>
 
 <table class = "table table-hover">
     <thead>
@@ -22,7 +29,23 @@
                     <a class="btn btn-primary" 
                        asp-controller="Presupuestos" 
                        asp-action="Details" 
-                       asp-route-id="@p.IdPresupuesto">Ver</a>
+                       asp-route-id="@p.IdPresupuesto">
+                       Ver
+                    </a>
+
+                    <a class="btn btn-danger"
+                        asp-controller="Presupuestos"
+                        asp-action="Delete"
+                        asp-route-id="@p.IdPresupuesto">
+                        Eliminar
+                    </a>
+
+                    <a class="btn btn-warning"
+                        asp-controller="Presupuestos"
+                        asp-action="Edit"
+                        asp-route-id="@p.IdPresupuesto">
+                        Editar
+                    </a>
 
                 </td>
             </tr>

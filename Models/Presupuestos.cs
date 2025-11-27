@@ -5,6 +5,10 @@ public class Presupuestos
     private DateTime fechaCreacion;
     private List<PresupuestoDetalles> detalles;
 
+    public Presupuestos()
+    {
+        
+    }
     public Presupuestos(int idPresupuesto, string nombreDestinatario, DateTime fechaCreacion, List<PresupuestoDetalles> detalles)
     {
         this.IdPresupuesto = idPresupuesto;
