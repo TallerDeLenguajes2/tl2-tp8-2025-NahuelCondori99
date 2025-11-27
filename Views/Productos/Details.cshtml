@@ -1,9 +1,25 @@
 @model Productos
 
-<h2>Detalle del Producto</h2>
+<h2>Detalle del producto</h2>
 
-<p><b>ID:</b>@Model.IdProducto</p>
-<p><b>Descripcion:</b>@Model.Descripcion</p>
-<p><b>Precio:</b>@Model.Precio</p>
+<ul class="list-group mb-3">
+    <li class="list-group-item"><b>ID:</b>@Model.IdProducto</li>
+    <li class="list-group-item"><b>Descripcion:</b>@Model.Descripcion</li>
+    <li class="list-group-item"><b>Precio:</b>@Model.Precio</li>
+</ul>
 
-<a class="btn btn-primary" href="/Productos">Volver</a>
+<a class="btn btn-warning"
+   asp-controller="Productos"
+   asp-action="Edit"
+   asp-route-id="@Model.IdProducto">
+    Editar
+</a>
+
+<a class="btn btn-danger"
+   asp-controller="Productos"
+   asp-action="Delete"
+   asp-route-id="@Model.IdProducto">
+   Eliminar
+</a>
+
+<a class="btn btn-secondary" href="/Productos">Volver</a>

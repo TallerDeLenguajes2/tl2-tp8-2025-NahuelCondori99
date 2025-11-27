@@ -99,4 +99,17 @@ public class ProductosController : Controller
         repo.Eliminar(id);
         return RedirectToAction("Index");
     }
+
+    //Edit
+    public IActionResult Details(int id)
+    {
+        var p = repo.GetById(id);
+
+        if (p == null)
+        {
+            return NotFound();
+        }
+
+        return View(p);
+    }
 }
