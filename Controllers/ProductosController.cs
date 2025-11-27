@@ -1,31 +1,83 @@
+using System.Runtime.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
-
+using tl2_tp8_2025_NahuelCondori99.ViewModels;
 public class ProductosController : Controller
 {
-    private ProductoRepository productoRepository;
+    private readonly ProductoRepository repo;
     public ProductosController()
     {
-        productoRepository = new ProductoRepository();
+        repo = new ProductoRepository();
     }
 
     //Listar los productos
-    [HttpGet]
     public IActionResult Index()
     {
-        List<Productos> listaProd = productoRepository.GetAll();
-        return View(listaProd);
+        var lista = repo.GetAll();
+        return View(lista);
     }
 
-    //Detalles de los productos
-    [HttpGet]
-    public IActionResult Details(int id)
+    //GET: Create
+
+    public IActionResult Create()
     {
-        var producto = productoRepository.GetById(id);
-        if (producto == null)
+        return View(new ProductoViewModel());
+    }
+
+    //POST: Create
+    [HttpPost]
+    public IActionResult Create(ProductoViewModel productoVM)
+    {
+        if (!ModelState.IsValid)
+        {
+            return View(productoVM);
+        }
+        var producto = new Productos
+        {
+            Descripcion = productoVM.Descripcion,
+            Precio = productoVM.Precio
+        };
+
+        repo.Alta(producto);
+
+        return RedirectToAction("Index");
+    }
+
+    //GET: Edit
+
+    public IActionResult Edit(int id)
+    {
+        var p = repo.GetById(id);
+        if (p == null)
         {
             return NotFound();
         }
-        return View(producto);
+        var vm = new ProductoViewModel
+        {
+            IdProducto = p.IdProducto,
+            Descripcion = p.Descripcion,
+            Precio = p.Precio
+        };
+        return View(vm);
+    }
+
+    //POST: Edit
+
+    [HttpPost]
+    public IActionResult Edit(ProductoViewModel productoVM)
+    {
+        if(!ModelState.IsValid)
+        {
+            return View(productoVM);
+        }
+        var p = new Productos
+        {
+          IdProducto = productoVM.IdProducto,
+          Descripcion = productoVM.Descripcion,
+          Precio = productoVM.Precio  
+        };
+
+        repo.Modificar(productoVM.IdProducto, p);
+        return RedirectToAction("Index");
     }
 }

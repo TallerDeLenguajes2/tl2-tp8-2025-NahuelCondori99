@@ -59,6 +59,12 @@ public class ProductoRepository
         return p;
     }
 
+
+    //Requerido para el TP9
+    public void Create(Productos p)
+    {
+        Alta(p);
+    }
     //Crear un producto por ID
     public void Alta(Productos p)
     {

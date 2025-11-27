@@ -1,0 +1,18 @@
+using System.ComponentModel.DataAnnotations;
+
+namespace tl2_tp8_2025_NahuelCondori99
+{
+    public class PresupuestoViewModel
+    {
+        public int IdPresupuesto {get; set;}
+
+        [Required(ErrorMessage = "El nombre o email es obligatorio")]
+        [Display(Name = "Nombre o Email del destinatario")]
+        public string NombreDestinatario{get; set;}
+
+        [Required(ErrorMessage = "La fecha es obligatoria")]
+        [DataType(DataType.Date)]
+        [Display(Name = "Fecha de creacion")]
+        public DateTime FechaCreacion{get; set;}
+    }
+}
