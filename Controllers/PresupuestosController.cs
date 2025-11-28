@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using tl2_tp8_2025_NahuelCondori99;
+using tl2_tp8_2025_NahuelCondori99.ViewModels;
 
 public class PresupuestosController : Controller
 {
@@ -104,6 +105,46 @@ public class PresupuestosController : Controller
         repo.Modificar(vm.IdPresupuesto, actualizado);
         
         return RedirectToAction("Index");
+    }
+
+    //AGREGAR PRODUCTOS AL PRESUPUESTO
+    public IActionResult AddProduct(int id)
+    {
+        var prodRepo = new ProductoRepository();
+        var productos = prodRepo.GetAll();
+
+        var vm = new AgregarProductoViewModel
+        {
+          IdPresupuesto = id,
+          ProductosDisponibles = productos  
+        };
+
+        return View(vm);
+    }
+
+    [HttpPost]
+    public IActionResult AddProduct(AgregarProductoViewModel vm)
+    {
+        if (!ModelState.IsValid)
+        {
+            var repoProd = new ProductoRepository();
+            vm.ProductosDisponibles = repoProd.GetAll();
+            return View(vm);
+        }
+
+        var presupuesto = repo.GetById(vm.IdPresupuesto);
+        bool yaExiste = presupuesto.Detalles
+                            .Any(d => d.Producto.IdProducto == vm.IdProducto);
+        if (yaExiste)
+        {
+            ModelState.AddModelError("", "Este producto ya fue agregado al presupuesto");
+            var repoProd = new ProductoRepository();
+            vm.ProductosDisponibles = repoProd.GetAll();
+            return View(vm);
+        }
+        repo.AgregarProducto(vm.IdPresupuesto, vm.IdProducto, vm.Cantidad);
+
+        return RedirectToAction("Details", new {id = vm.IdPresupuesto});
     }
     //ESTO ES DEL TP8
     //Detalles de los presupuestos

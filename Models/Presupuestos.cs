@@ -22,6 +22,9 @@ public class Presupuestos
     public DateTime FechaCreacion { get => fechaCreacion; set => fechaCreacion = value; }
     public List<PresupuestoDetalles> Detalles { get => detalles; set => detalles = value; }
 
+
+    //ESTO ES DEL TP8
+    
     public double MontoPresupuesto()
     {
         double total = 0;
@@ -33,6 +36,7 @@ public class Presupuestos
         return total;
     }
 
+    
     public double MontoPresupuestoIVA()
     {
         double montoBase = MontoPresupuesto();
@@ -52,4 +56,12 @@ public class Presupuestos
         }
         return totalCantidad;
     }
+    
+    //Esto es del TP9
+
+    public int Total => Detalles.Sum(d => d.Cantidad * d.Producto.Precio);
+
+    public int TotalConIva => (int)(Total * 1.21);
+
+    public int CantidadTotalProductos => Detalles.Sum(d => d.Cantidad);
 }

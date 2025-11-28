@@ -15,7 +15,10 @@
             <th>ID</th>
             <th>Destinatario</th>
             <th>Fecha</th>
-            <th></th>
+            <th>Total</th>
+            <th>Total con IVA</th>
+            <th>Cantidad Productos</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -25,6 +28,10 @@
                 <td>@p.IdPresupuesto</td>
                 <td>@p.NombreDestinatario</td>
                 <td>@p.FechaCreacion</td>
+                <td>$@p.Total</td>
+                <td>$@p.TotalConIva</td>
+                <td>$@p.CantidadTotalProductos</td>
+
                 <td>
                     <a class="btn btn-primary" 
                        asp-controller="Presupuestos" 

@@ -1,19 +1,19 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace tl2_tp8_2025_NahuelCondori99
+namespace tl2_tp8_2025_NahuelCondori99.ViewModels
 {
     public class AgregarProductoViewModel
     {
         public int IdPresupuesto {get; set;}
 
-        [Display(Name = "Producto")]
+        [Required]
         public int IdProducto {get; set;}
 
-        [Required(ErrorMessage = "La cantidad es obligatoria")]
-        [Range(1, int.MaxValue, ErrorMessage = "La cantidad debe ser mayor a cero")]
+        [Required]
+        [Range(1, 999, ErrorMessage ="Debe ingresar una cantidad valida")]
         public int Cantidad {get; set;}
 
-        public SelectList ListaProductos {get; set;}
+        public List<Productos> ProductosDisponibles {get ; set;}
     }
 }

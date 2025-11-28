@@ -1,25 +1,31 @@
-@model List<Productos>
+@model tl2_tp8_2025_NahuelCondori99.ViewModels.AgregarProductoViewModel
 
 <h2>Agregar productos al presupuesto</h2>
 
-<form method="post">
-    <input type="hidden" name="idPresupuesto" value="@ViewBag.IdPresupuesto" />
+<form asp-action="AddProduct" method="post">
+    <input type="hidden" asp-for="IdPresupuesto" />
 
     <div class="form-group">
-        <label>Productos</label>
-        <select class="form-control" name="idProducto">
-            @foreach(var p in Model)
-            {
-                <option value="@p.IdProducto">@p.Descripcion ($@p.Precio)</option>
-            }
+        <label>Producto</label>
+        <select asp-for="IdProducto" class="form-control"
+                asp-items="@(new SelectList(Model.ProductosDisponibles, "IdProducto", "Descripcion"))">
         </select>
+        <span asp-validation-for="IdProducto" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label>Cantidad</label>
-        <input class="form-control" type="number" name="cantidad" min="1" value="1" />
+        <input asp-for="Cantidad" class="form-control"/>
+        <span asp-validation-for="Cantidad" class="text-danger"></span>
     </div>
 
     <button class="btn btn-success" type="submit">Agregar</button>
-    <a class="btn btn-secondary" href="/Presupuestos/Details/@ViewBag.IdPresupuesto">Cancelar</a>
+
+    <a class="btn btn-secondary"
+        asp-asp-controller="Presupuestos"
+        asp-action="Details"
+        asp-route-id="@Model.IdPresupuesto">
+        Cancelar
+    </a>
+    
 </form>

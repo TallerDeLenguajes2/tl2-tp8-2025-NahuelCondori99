@@ -49,6 +49,37 @@ public class PresupuestosRepository
                     listaPresupuestos.Add(p);
                 }
             }
+
+            foreach (var p in listaPresupuestos)
+            {
+                string sqlDetalle = @"
+                    SELECT pd.cantidad, pr.idProducto, pr.descripcion, pr.precio
+                    FROM presupuestoDetalles pd
+                    INNER JOIN Productos pr ON pd.idProducto = pr.idProducto
+                    WHERE pd.idPresupuesto = @id";
+
+                using (var cmd = new SqliteCommand(sqlDetalle, conexion))
+                {
+                    cmd.Parameters.AddWithValue("@id", p.IdPresupuesto);
+
+                    using (var lector = cmd.ExecuteReader())
+                    {
+                        while (lector.Read())
+                        {
+                            var prod = new Productos
+                            (
+                                Convert.ToInt32(lector["idProducto"]),
+                                lector["descripcion"].ToString(),
+                                Convert.ToInt32(lector["precio"])
+                            );
+
+                            var detalle = new PresupuestoDetalles(prod, Convert.ToInt32(lector["cantidad"]));
+
+                            p.Detalles.Add(detalle);
+                        }
+                    }
+                }
+            }
         }
         return listaPresupuestos;
     }

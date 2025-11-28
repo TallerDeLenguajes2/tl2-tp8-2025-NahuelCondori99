@@ -5,8 +5,8 @@
 <h4>Datos del Presupuesto</h4>
 <p><b>Destinatario:</b> @Model.NombreDestinatario</p>
 <p><b>Fecha:</b> @Model.FechaCreacion</p>
-<p><b>Total:</b> $@Model.MontoPresupuesto()</p>
-<p><b>Total con IVA:</b> $@Model.MontoPresupuestoIVA()</p>
+<p><b>Total:</b> $@Model.Total</p>
+<p><b>Total con IVA:</b> $@Model.TotalConIva</p>
 
 <h4>Productos del Presupuesto</h4>
 
@@ -37,6 +37,7 @@
                         asp-route-idProducto="@d.Producto.IdProducto">
                             Eliminar
                     </a>
+
                 </td>
                 <td>
                     <a class="btn btn-warning"
@@ -53,9 +54,9 @@
 </table>
 
 <a class="btn btn-success"
-   asp-controller="Presupuestos"
-   asp-action="AddProduct"
-   asp-route-id="@Model.IdPresupuesto">
+    asp-controller="Presupuestos"
+    asp-action="AddProduct"
+    asp-route-id="@Model.IdPresupuesto">
     Agregar Producto
 </a>
 
