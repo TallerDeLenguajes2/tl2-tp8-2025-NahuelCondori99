@@ -2,24 +2,38 @@ using System.Runtime.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using tl2_tp8_2025_NahuelCondori99.ViewModels;
+using tl2_tp8_2025_NahuelCondori99.Interfaces;
+using tl2_tp8_2025_NahuelCondori99.Models;
 public class ProductosController : Controller
 {
-    private readonly ProductoRepository repo;
-    public ProductosController()
+    private readonly IProductoRepository _repo;
+    private readonly IAuthenticationService _authService;
+    public ProductosController(IProductoRepository prodRepo, IAuthenticationService authService)
     {
-        repo = new ProductoRepository();
+        _repo = prodRepo;
+        _authService = authService;
     }
 
-    //Listar los productos
+    //TP10 
+    private IActionResult CheckAdminPermissions()
+    {
+        if(!_authService.IsAuthenticated()) return RedirectToAction("Index", "Login");
+        if(!_authService.HasAccessLevel("Administrador")) return RedirectToAction(nameof(AccesoDenegado));
+        return null;
+    }
     public IActionResult Index()
     {
-        var lista = repo.GetAll();
+        var check = CheckAdminPermissions();
+        if(check != null) return check;
+
+        var lista = _repo.GetAll();
         return View(lista);
     }
 
+    public IActionResult AccesoDenegado() => View();
     //GET: Create
 
-    public IActionResult Create()
+    /*public IActionResult Create()
     {
         return View(new ProductoViewModel());
     }
@@ -111,5 +125,5 @@ public class ProductosController : Controller
         }
 
         return View(p);
-    }
+    }*/
 }

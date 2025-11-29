@@ -1,4 +1,4 @@
-namespace tl2_tp8_2025_NahuelCondori99.Interfaces
+namespace tl2_tp8_2025_NahuelCondori99.Models
 {
     public interface IUserRepository
     {

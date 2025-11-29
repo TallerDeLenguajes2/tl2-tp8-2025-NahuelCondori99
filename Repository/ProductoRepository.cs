@@ -1,7 +1,8 @@
 using System.Reflection.Metadata.Ecma335;
 using Microsoft.Data.Sqlite;
+using tl2_tp8_2025_NahuelCondori99.Interfaces;
 
-public class ProductoRepository
+public class ProductoRepository : IProductoRepository
 {
     private string cadenaDeConexion = "Data Source = Tienda.db;";
 

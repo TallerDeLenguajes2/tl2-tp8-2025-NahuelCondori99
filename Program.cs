@@ -1,7 +1,31 @@
+using tl2_tp8_2025_NahuelCondori99.Interfaces;
+using tl2_tp8_2025_NahuelCondori99.Repository;
+using tl2_tp8_2025_NahuelCondori99.Models;
+using tl2_tp8_2025_NahuelCondori99.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
+builder.Services.AddScoped<IPresupuestoRepository, PresupuestosRepository>();
+builder.Services.AddScoped<IUserRepository, UsuarioRepository>();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddHttpContextAccessor();
+
+//Habilitar session
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+// Inyección de dependencias
+builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
+builder.Services.AddScoped<IPresupuestoRepository, PresupuestosRepository>();
+builder.Services.AddScoped<IUserRepository, UsuarioRepository>();
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 
 var app = builder.Build();
 
@@ -17,6 +41,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseSession();
 
 app.UseAuthorization();
 

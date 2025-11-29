@@ -7,7 +7,7 @@ namespace tl2_tp8_2025_NahuelCondori99.Repository
     public class UsuarioRepository : IUserRepository
     {
         private readonly string cadena = "Data Source = Tienda.db;";
-        public Usuario GetUser(string usuario, string contrasena)
+        public Usuario GetUsuario(string usuario, string contrasena)
         {
             Usuario user = null;
             const string sql = @"

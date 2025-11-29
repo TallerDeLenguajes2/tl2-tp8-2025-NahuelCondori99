@@ -32,6 +32,25 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Presupuestos" asp-action="Index">Presupuestos</a>
                         </li>
                     </ul>
+                    <ul class="navbar-nav">
+                        @if (Context.Session.GetString("usuario") == null)
+                        {
+                            <!-- Usuario NO logueado -->
+                            <li class="nav-item">
+                                <a class="btn btn-outline-primary" asp-controller="Login" asp-action="Index">Iniciar sesión</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <!-- Usuario logueado -->
+                            <li class="nav-item d-flex align-items-center me-2">
+                                <span class="text-dark">Hola, @Context.Session.GetString("usuario")</span>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-danger" asp-controller="Login" asp-action="Logout">Cerrar sesión</a>
+                            </li>
+                        }
+                    </ul>
                 </div>
             </div>
         </nav>

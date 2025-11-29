@@ -1,7 +1,8 @@
 using System.Runtime.InteropServices;
 using Microsoft.Data.Sqlite;
+using tl2_tp8_2025_NahuelCondori99.Interfaces;
 
-public class PresupuestosRepository
+public class PresupuestosRepository : IPresupuestoRepository
 {
     private string cadenaDeConexion = "Data Source = Tienda.db;";
 

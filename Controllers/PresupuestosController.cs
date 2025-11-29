@@ -1,15 +1,65 @@
 using Microsoft.AspNetCore.Mvc;
 using tl2_tp8_2025_NahuelCondori99;
+using tl2_tp8_2025_NahuelCondori99.Interfaces;
 using tl2_tp8_2025_NahuelCondori99.ViewModels;
 
 public class PresupuestosController : Controller
 {
-    private readonly PresupuestosRepository repo;
-    public PresupuestosController()
+    private readonly IPresupuestoRepository _repo;
+    private readonly IProductoRepository _productRepo;
+    private readonly IAuthenticationService _authService;
+    public PresupuestosController(IPresupuestoRepository repo, IProductoRepository productRepo, IAuthenticationService authService)
     {
-        repo = new PresupuestosRepository();
-    }   
+        _repo = repo;
+        _productRepo = productRepo;
+        _authService = authService;
+    }
 
+    //TP10
+    public IActionResult CheckReadPermissions()
+    {
+        if(!_authService.IsAuthenticated()) return RedirectToAction("Index", "Login");
+        if(!(_authService.HasAccessLevel("Administrador") || _authService.HasAccessLevel("Cliente")))
+            return RedirectToAction(nameof(AccesoDenegado));
+        return null;
+    }
+
+    //Index (lectura)
+    public IActionResult Index()
+    {
+        var check = CheckReadPermissions();
+        if (check != null)
+        {
+            return check;
+        }
+        var lista = _repo.GetAll();
+        return View(lista);
+    }
+
+    //Create (modificacion) -> solo admin
+    public IActionResult Create()
+    {
+        if(!_authService.IsAuthenticated()) return RedirectToAction("Index", "Login");
+        if(!_authService.HasAccessLevel("Administrador")) return RedirectToAction(nameof(AccesoDenegado));
+        return View(new PresupuestoViewModel());
+
+    }
+
+    [HttpPost]
+    public IActionResult Create(PresupuestoViewModel vm)
+    {
+        if(!_authService.IsAuthenticated()) return RedirectToAction("Index", "Login");
+        if(!_authService.HasAccessLevel("Administrador")) return RedirectToAction(nameof(AccesoDenegado));
+        if(!ModelState.IsValid) return View(vm);
+
+        var nuevo = new Presupuestos {NombreDestinatario = vm.NombreDestinatario, FechaCreacion = DateTime.Now};
+        _repo.crearPresupuesto(nuevo);
+        return RedirectToAction("Index");
+    }
+
+    public IActionResult AccesoDenegado() => View();
+
+    /*
     //Listar presupuestos
     public IActionResult Index()
     {
