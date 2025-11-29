@@ -4,6 +4,10 @@ namespace tl2_tp8_2025_NahuelCondori99.ViewModels
 {
     public class ProductoViewModel
     {
+        public ProductoViewModel()
+        {
+            
+        }
         public int IdProducto {get; set;}
 
         [Display(Name = "Descripcion del producto")]

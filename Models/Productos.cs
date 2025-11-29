@@ -1,3 +1,4 @@
+using System.ComponentModel;
 public class Productos
 {
     private int idProducto;

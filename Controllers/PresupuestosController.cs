@@ -39,8 +39,16 @@ public class PresupuestosController : Controller
     //Create (modificacion) -> solo admin
     public IActionResult Create()
     {
-        if(!_authService.IsAuthenticated()) return RedirectToAction("Index", "Login");
-        if(!_authService.HasAccessLevel("Administrador")) return RedirectToAction(nameof(AccesoDenegado));
+        if(!_authService.IsAuthenticated()) 
+        {
+            return RedirectToAction("Index", "Login");
+        }
+
+        if(!_authService.HasAccessLevel("Administrador")) 
+        {
+            return RedirectToAction(nameof(AccesoDenegado));
+        }
+
         return View(new PresupuestoViewModel());
 
     }
@@ -48,15 +56,31 @@ public class PresupuestosController : Controller
     [HttpPost]
     public IActionResult Create(PresupuestoViewModel vm)
     {
-        if(!_authService.IsAuthenticated()) return RedirectToAction("Index", "Login");
-        if(!_authService.HasAccessLevel("Administrador")) return RedirectToAction(nameof(AccesoDenegado));
-        if(!ModelState.IsValid) return View(vm);
+        if(!_authService.IsAuthenticated()) 
+        {
+            return RedirectToAction("Index", "Login");
+        }
 
-        var nuevo = new Presupuestos {NombreDestinatario = vm.NombreDestinatario, FechaCreacion = DateTime.Now};
+        if(!_authService.HasAccessLevel("Administrador")) 
+        {
+            return RedirectToAction(nameof(AccesoDenegado));
+        }
+
+        if(!ModelState.IsValid)
+        {
+            return View(vm);
+        }
+        var nuevo = new Presupuestos 
+        {
+            NombreDestinatario = vm.NombreDestinatario, 
+            FechaCreacion = DateTime.Now
+        };
+
         _repo.crearPresupuesto(nuevo);
         return RedirectToAction("Index");
     }
 
+//FALTA DETAILS, EDIT, DELETE
     public IActionResult AccesoDenegado() => View();
 
     /*

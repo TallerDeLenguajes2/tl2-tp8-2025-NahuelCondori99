@@ -8,15 +8,21 @@ using tl2_tp8_2025_NahuelCondori99.Models;
 public class LoginController : Controller
 {
     private readonly IAuthenticationService _auth;
+    private readonly ILogger<LoginController> _logger;
 
-    public LoginController(IAuthenticationService auth)
+    public LoginController(IAuthenticationService auth, ILogger<LoginController> logger)
     {
         _auth = auth;
+        _logger = logger;
     }
 
     public IActionResult Index()
     {
-        return View(new LoginViewModel());
+        var model = new LoginViewModel()
+        {
+            IsAuthenticaded = HttpContext.Session.GetString("IsAuthenticated") == "true"
+        };
+        return View(model);
     }
 
     [HttpPost]
@@ -34,6 +40,7 @@ public class LoginController : Controller
         }
 
         vm.ErrorMessage = "Credenciales invalidas";
+        vm.IsAuthenticaded = false;
         return View("Index", vm);
     }
 

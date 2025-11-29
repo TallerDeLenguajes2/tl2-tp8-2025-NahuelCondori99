@@ -17,8 +17,16 @@ public class ProductosController : Controller
     //TP10 
     private IActionResult CheckAdminPermissions()
     {
-        if(!_authService.IsAuthenticated()) return RedirectToAction("Index", "Login");
-        if(!_authService.HasAccessLevel("Administrador")) return RedirectToAction(nameof(AccesoDenegado));
+        if(!_authService.IsAuthenticated()) 
+        {
+            return RedirectToAction("Index", "Login");
+        }
+
+        if(!_authService.HasAccessLevel("Administrador")) 
+        {
+            return RedirectToAction(nameof(AccesoDenegado));
+        }
+        
         return null;
     }
     public IActionResult Index()

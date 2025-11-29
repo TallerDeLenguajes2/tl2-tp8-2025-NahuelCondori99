@@ -18,7 +18,10 @@ namespace tl2_tp8_2025_NahuelCondori99.Services
             var user = _userRepository.GetUsuario(username, password);
             if (user != null)
             {
-                if (context == null) throw new InvalidOperationException("HttpContext no disponible");
+                if (context == null) 
+                {
+                    throw new InvalidOperationException("HttpContext no disponible");
+                }
                 context.Session.SetString("IsAuthenticated", "true");
                 context.Session.SetString("User", user.User);
                 context.Session.SetString("UserNombre", user.Nombre);
